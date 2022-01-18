@@ -62,6 +62,9 @@
                 margin-bottom: 30px;
             }
         </style>
+
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/vue.js') }}"></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
