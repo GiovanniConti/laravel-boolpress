@@ -64,7 +64,7 @@
         </style>
 
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/vue.js') }}"></script>
+        <script src="{{ asset('js/vue.js') }}" defer></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
