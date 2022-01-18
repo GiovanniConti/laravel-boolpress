@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::namespace('Admin')
@@ -27,4 +23,10 @@ Route::namespace('Admin')
   ->name('admin.')
   ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource("user", "UserController");
   });
+
+
+  Route::get('{any?}', function () {
+  return view('welcome');
+});
