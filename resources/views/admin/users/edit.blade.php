@@ -15,7 +15,7 @@
       <strong>{{ $message }}</strong>
     </span>
     @enderror
-    
+
     <label class="form-label mt-3">E-mail</label>
     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
       value="{{ $user->email }}" required autocomplete="email">
@@ -26,6 +26,10 @@
     </span>
     @enderror
 
+    <div class="d-flex my-4 justify-content-center">
+      <a href="{{ route('admin.users.index') }}" class="btn btn-outline-danger mr-2" type="reset">Annulla</a>
+      <button class="btn btn-primary px-3" type="submit">Salva</button>
+    </div>
   </div>
 
 </form>
