@@ -23,10 +23,10 @@ Route::namespace('Admin')
   ->name('admin.')
   ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource("user", "UserController");
+    Route::resource("users", "UserController");
   });
 
 
-  Route::get('{any?}', function () {
-  return view('welcome');
-});
+Route::get('{any?}', function () {
+  return view('guests.home');
+})->where("any", ".*")->name("home");

@@ -1,13 +1,13 @@
 <template>
-  
+  <h1>Welcome Vue</h1>
 </template>
-<script>
-import ExampleComponent from "./am"
 
+<script>
 export default {
   name: "App",
-  components: {
-    Exa
-  }
 }
 </script>
+
+<style>
+
+</style>
