@@ -16,6 +16,9 @@
         <li class="nav-item">
           <a class="nav-link text-light" href="{{ route('admin.users.index') }}">Elenco Utenti</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="{{ route('admin.posts.index') }}">Posts</a>
+        </li>
       </ul>
     </div>
       <div class="col-10">

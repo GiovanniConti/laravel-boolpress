@@ -24,6 +24,7 @@ Route::namespace('Admin')
   ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource("users", "UserController");
+    Route::resource("posts", "PostController");
   });
 
 
