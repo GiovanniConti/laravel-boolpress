@@ -18,7 +18,7 @@
         <h5 class="card-title"> {{ $post->title }} </h5>
         <p class="card-text"> {{ $post->content }} </p>
 
-        <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id) }}">Modifica Post</a>
+        <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->id) }}">Visualizza Post</a>
       </div>
       @endforeach
     </div>
