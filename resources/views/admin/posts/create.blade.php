@@ -15,8 +15,8 @@
   {{-- Category --}}
   <select class="form-select" name="category_id">
     <label class="form-label">Categoria</label>
-      {{ $category->name }}
-    </option>
+    @foreach ($categories as $category)
+    <option value="{{ $category->id }}">{{ $category->name }}</option>
     @endforeach
   </select>
 
