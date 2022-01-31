@@ -3,8 +3,10 @@
 @section('main_content')
 <div class="container text-center">
   <h1>{{ $post->title }}</h1>
+  <h6 class="card-subtitle text-muted mb-2">{{ $post->category->name }}</h6>
   <img src="https://picsum.photos/200" alt="igm">
   <p>{{ $post->content }}</p>
+
 
 
 
