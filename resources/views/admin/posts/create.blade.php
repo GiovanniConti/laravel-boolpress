@@ -15,9 +15,6 @@
   {{-- Category --}}
   <select class="form-select" name="category_id">
     <label class="form-label">Categoria</label>
-    @foreach ($categories as $category)
-    <option value="{{ $category->id }}" @if ($category->id === $post->category_id) selected
-      @endif>
       {{ $category->name }}
     </option>
     @endforeach

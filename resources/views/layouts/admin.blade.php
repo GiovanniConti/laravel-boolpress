@@ -1,6 +1,6 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
-@section('title', 'admin');
+@section('title', 'admin')
 
 @section('content')
 <div class="container">
