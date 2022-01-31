@@ -13,7 +13,10 @@
 @else
 <div class="container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    {{-- Cicle through all posts --}}
     @foreach ($posts as $post)
+
     {{-- Card single post --}}
     <div class="col mb-4">
       <div class="card">
@@ -23,11 +26,17 @@
           <p class="card-text"> {{ $post->content }} </p>
           <h6 class="card-subtitle text-muted mb-2">{{ $post->category->name }}</h6>
 
+          {{-- Show single post button --}}
           <a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}">Visualizza Post</a>
         </div>
       </div>
     </div>
+
     @endforeach
+  
+  </div>
+  <div class="d-flex justify-content-center py-3">
+    {!! $posts->links() !!}
   </div>
 </div>
 @endif
