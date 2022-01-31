@@ -10,11 +10,11 @@
 
 
 
-  <form action="{{ route('admin.posts.destroy', $post->id) }}" method='post'>
+  <form action="{{ route('admin.posts.destroy', $post->slug) }}" method='post'>
     @csrf
     @method('DELETE')
 
-    <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id) }}">Modifica Post</a>
+    <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}">Modifica Post</a>
 
     <input type="submit" value="ELIMINA" class="btn btn-danger">
   </form>

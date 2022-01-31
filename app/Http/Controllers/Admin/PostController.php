@@ -6,9 +6,40 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+  /**
+   * Function to generate an unique slug
+   *
+   * @param string $title
+   */
+  private function generateSlug($title)
+  {
+    $slug = Str::slug($title);
+
+    // Check if already exist a post with same slug
+    $alreadyExists = Post::where('slug', $slug)->first();
+    $counter = 1;
+
+    // If exist do a while till finds an unique slug
+    while ($alreadyExists) {
+
+      // create a new slug
+      $newSlug = $slug . "-" . $counter;
+      $counter++;
+
+      // check if the new slug is unique and if so save it as slug
+      $alreadyExists = Post::where('slug', $slug)->first();
+      if (!$alreadyExists) {
+        $slug = $newSlug;
+      }
+    }
+
+    return $slug;
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -43,6 +74,9 @@ class PostController extends Controller
   {
     $data = $request->all();
     $newPost = new Post();
+
+    $newPost->slug = $this->generateSlug($data['title']);
+
     $newPost->fill($data);
     $newPost->save();
 
@@ -55,8 +89,9 @@ class PostController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show(Post $post)
+  public function show($slug)
   {
+    $post = Post::where('slug', $slug)->first();
     return view('admin.posts.show', compact('post'));
   }
 
@@ -66,8 +101,9 @@ class PostController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit(Post $post)
+  public function edit($slug)
   {
+    $post = Post::where('slug', $slug)->first();
     $categories = Category::all();
 
     return view('admin.posts.edit', [
@@ -83,11 +119,21 @@ class PostController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Post $post)
+  public function update(Request $request, $slug)
   {
-    $post->update($request->all());
+    $post = Post::where('slug', $slug)->first();
+    $data = $request->all();
+    $oldTitle = $post->title;
+    $titleChanged = $oldTitle != $data['title'];
+    $post->fill($data);
 
-    return redirect()->route('admin.posts.show', $post->id);
+    // check if the title changed
+    if($titleChanged){
+      $post->slug = $this->generateSlug($data['title']);
+    }
+    
+    $post->update($data);
+    return redirect()->route('admin.posts.show', $post->slug);
   }
 
   /**
@@ -96,8 +142,9 @@ class PostController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Post $post)
+  public function destroy($slug)
   {
+    $post = Post::where('slug', $slug)->first();
     $post->delete();
 
     return redirect()->route('admin.posts.index');
