@@ -31,12 +31,12 @@ class PostController extends Controller
       $counter++;
 
       // check if the new slug is unique and if so save it as slug
-      $alreadyExists = Post::where('slug', $slug)->first();
+      $alreadyExists = Post::where('slug', $newSlug)->first();
       if (!$alreadyExists) {
         $slug = $newSlug;
       }
     }
-
+    // dd($slug);
     return $slug;
   }
 
@@ -73,12 +73,12 @@ class PostController extends Controller
   public function store(Request $request)
   {
     $data = $request->all();
-    $newPost = new Post();
+    $post = new Post();
+    $post->fill($data);
 
-    $newPost->slug = $this->generateSlug($data['title']);
+    $post->slug = $this->generateSlug($data['title']);
 
-    $newPost->fill($data);
-    $newPost->save();
+    $post->save();
 
     return redirect()->route('admin.posts.index');
   }
@@ -124,7 +124,7 @@ class PostController extends Controller
     $post = Post::where('slug', $slug)->first();
     $data = $request->all();
     $oldTitle = $post->title;
-    $titleChanged = $oldTitle != $data['title'];
+    $titleChanged = $oldTitle !== $data['title'];
     $post->fill($data);
 
     // check if the title changed
@@ -132,7 +132,7 @@ class PostController extends Controller
       $post->slug = $this->generateSlug($data['title']);
     }
     
-    $post->update($data);
+    $post->save();
     return redirect()->route('admin.posts.show', $post->slug);
   }
 
